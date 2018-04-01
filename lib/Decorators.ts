@@ -2,7 +2,7 @@ import * as Glob from 'glob';
 import * as Path from 'path';
 import { Route } from '../';
 import { RouterMethods } from './Enums'
-const root = Path.normalize(__dirname + '/..');
+const root = Path.normalize(__dirname + '../..');
 
 const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDescriptor, method: RouterMethods, route: string, cb: Function) => {
     let stringMethod = RouterMethods[method].toLowerCase()
