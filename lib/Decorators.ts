@@ -2,8 +2,10 @@ import * as Glob from 'glob';
 import * as Path from 'path';
 import { Route } from '../';
 import { RouterMethods } from './Enums'
-const root = Path.normalize(__dirname + '../..');
-
+const root = (global as any)['rootPath'];
+if (!root){
+    throw Error('Set Root diractory to global.rootPath')
+}
 const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDescriptor, method: RouterMethods, route: string, cb: Function) => {
     let stringMethod = RouterMethods[method].toLowerCase()
     let absolutePath = Glob.sync(root + `/app/views/${target.constructor.name.toLowerCase()}/**/${propertyKey}.jade`)[0]
