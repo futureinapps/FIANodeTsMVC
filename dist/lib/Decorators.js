@@ -12,7 +12,7 @@ const Glob = require("glob");
 const Path = require("path");
 const _1 = require("../");
 const Enums_1 = require("./Enums");
-const root = Path.normalize(__dirname + '/..');
+const root = Path.normalize(__dirname + '../..');
 const RouteDecorator = (target, propertyKey, descriptor, method, route, cb) => {
     let stringMethod = Enums_1.RouterMethods[method].toLowerCase();
     let absolutePath = Glob.sync(root + `/app/views/${target.constructor.name.toLowerCase()}/**/${propertyKey}.jade`)[0];
