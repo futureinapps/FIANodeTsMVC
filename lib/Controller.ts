@@ -6,8 +6,6 @@ import * as Path from 'path';
 export default class Controller {
 
     private app: any;
-    private currentMethod: string;
-    private currentRoute: string;
 
     constructor(app: any, path: string) {
         var router = Express.Router();
@@ -21,12 +19,12 @@ export default class Controller {
     }
 
     initRoutes(router: Express.Router) {
-        let routes = Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(x => typeof this[x] == 'function' && x !== 'constructor')
+        let routes = Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(x => typeof (this as any)[x] == 'function' && x !== 'constructor')
         let routeCounter = 0;
         for (let route of routes) {
-            if (this[route](router) instanceof Route) {
+            if ((this as any)[route](router) instanceof Route) {
                 routeCounter++;
-                this[route](router)
+                (this as any)[route](router)
             } else {
                 throw Error(`Функция контроллера ${route} должна возвращать тип Route`)
             }
