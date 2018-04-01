@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "experimentalDecorators": true,
+      "target": "es2015",
+      "module": "commonjs",
+      "lib": [
+        "es2015",
+        "dom"
+      ]
+    },
+    "compileOnSave": true,
+    "exclude": [
+      "node_modules",
+      "components"
+    ]
+  }

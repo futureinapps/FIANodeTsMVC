@@ -1,0 +1,30 @@
+{
+  "name": "node-typescript-mvc",
+  "version": "0.0.1",
+  "description": "MVC pattern module for Node.js application",
+  "main": "dist/index.d.ts",
+  "types" : "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futureinapps/FIANodeTsMVC.git"
+  },
+  "author": "Futureinapps",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/futureinapps/FIANodeTsMVC/issues"
+  },
+  "homepage": "https://github.com/futureinapps/FIANodeTsMVC#readme",
+  "devDependencies": {
+    "typescript": "^2.8.1",
+    "@types/node": "^9.6.1"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "glob": "^7.1.2",
+    "path": "^0.12.7"
+  }
+}
