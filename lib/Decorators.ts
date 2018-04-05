@@ -1,3 +1,4 @@
+import * as Express from 'express';
 import * as Glob from 'glob';
 import * as Path from 'path';
 import { Route } from '../';
@@ -6,11 +7,15 @@ const root = (global as any)['rootPath'];
 if (!root){
     throw Error('Set Root diractory to global.rootPath')
 }
-const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDescriptor, method: RouterMethods, route: string, cb: Function) => {
+const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDescriptor, method: RouterMethods, route: string, cb: Function, isRender=false) => {
     let stringMethod = RouterMethods[method].toLowerCase()
-    let absolutePath = Glob.sync(root + `/app/views/${target.constructor.name.toLowerCase()}/**/${propertyKey}.jade`)[0]
-    let finalPathToView = Path.dirname(absolutePath).replace(root + '/app/views/', '') + `/${propertyKey}`
+    let absolutePath = '';
+    let finalPathToView = '';
     let originalFunction = descriptor.value
+    if (isRender){
+        absolutePath = Glob.sync(root + `/app/views/${target.constructor.name.toLowerCase()}/**/${propertyKey}.jade`)[0]
+        finalPathToView = Path.dirname(absolutePath).replace(root + '/app/views/', '') + `/${propertyKey}`
+    }
     descriptor.value = (router:any) => {
         return new Route(
             router,
@@ -30,7 +35,7 @@ export const RenderRoute = (route: string, method: RouterMethods) => {
             let result = await originalFunction(router, req, next)
             Object.assign(params, result)
             res.render(finalPathToView, params)
-        })
+        },true)
     }
 }
 

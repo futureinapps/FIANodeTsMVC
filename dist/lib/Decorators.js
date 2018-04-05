@@ -16,11 +16,15 @@ const root = global['rootPath'];
 if (!root) {
     throw Error('Set Root diractory to global.rootPath');
 }
-const RouteDecorator = (target, propertyKey, descriptor, method, route, cb) => {
+const RouteDecorator = (target, propertyKey, descriptor, method, route, cb, isRender = false) => {
     let stringMethod = Enums_1.RouterMethods[method].toLowerCase();
-    let absolutePath = Glob.sync(root + `/app/views/${target.constructor.name.toLowerCase()}/**/${propertyKey}.jade`)[0];
-    let finalPathToView = Path.dirname(absolutePath).replace(root + '/app/views/', '') + `/${propertyKey}`;
+    let absolutePath = '';
+    let finalPathToView = '';
     let originalFunction = descriptor.value;
+    if (isRender) {
+        absolutePath = Glob.sync(root + `/app/views/${target.constructor.name.toLowerCase()}/**/${propertyKey}.jade`)[0];
+        finalPathToView = Path.dirname(absolutePath).replace(root + '/app/views/', '') + `/${propertyKey}`;
+    }
     descriptor.value = (router) => {
         return new _1.Route(router, route, stringMethod, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             yield cb(router, originalFunction, req, res, next, finalPathToView, res);
@@ -34,7 +38,7 @@ exports.RenderRoute = (route, method) => {
             let result = yield originalFunction(router, req, next);
             Object.assign(params, result);
             res.render(finalPathToView, params);
-        }));
+        }), true);
     };
 };
 exports.RedirectRoute = (route, method) => {
