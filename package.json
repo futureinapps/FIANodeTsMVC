@@ -1,6 +1,6 @@
 {
   "name": "nts-mvc",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "MVC pattern module for Node.js application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
