@@ -18,7 +18,6 @@ class Controller {
         for (let route of routes) {
             if (this[route](router) instanceof Route_1.default) {
                 routeCounter++;
-                this[route](router);
             }
             else {
                 throw Error(`Функция контроллера ${route} должна возвращать тип Route`);
