@@ -7,14 +7,14 @@ export default class Controller {
 
     private app: any;
 
-    constructor(app: any, path: string, routerParams:Express.RouterOptions = {}) {
+    constructor(app: any, path: string | string[], routerParams: Express.RouterOptions = {}) {
         var router = Express.Router(routerParams);
         this.app = app;
         this.initParentRoutePath(path, router);
         this.initRoutes(router);
     }
 
-    initParentRoutePath(path: String, router: Express.Router) {
+    initParentRoutePath(path: string | string[], router: Express.Router) {
         this.app.use(path, router)
     }
 
