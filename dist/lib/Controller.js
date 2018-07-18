@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Express = require("express");
 const Route_1 = require("./Route");
 class Controller {
-    constructor(app, path) {
-        var router = Express.Router();
+    constructor(app, path, routerParams = {}) {
+        var router = Express.Router(routerParams);
         this.app = app;
         this.initParentRoutePath(path, router);
         this.initRoutes(router);
