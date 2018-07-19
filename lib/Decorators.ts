@@ -7,7 +7,7 @@ const root = (global as any)['rootPath'];
 if (!root){
     throw Error('Set Root diractory to global.rootPath')
 }
-const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDescriptor, method: RouterMethods, route: string, cb: Function, isRender=false) => {
+const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDescriptor, method: RouterMethods, route: string | string[], cb: Function, isRender=false) => {
     let stringMethod = RouterMethods[method].toLowerCase()
     let absolutePath = '';
     let finalPathToView = '';
@@ -28,7 +28,7 @@ const RouteDecorator = (target:any, propertyKey: string, descriptor: PropertyDes
     }
 }
 
-export const RenderRoute = (route: string, method: RouterMethods) => {
+export const RenderRoute = (route: string | string[], method: RouterMethods) => {
     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
         RouteDecorator(target, propertyKey, descriptor, method, route, async (router:any, originalFunction:Function, req:Express.Request, res:any, next:Function, finalPathToView?:string) => {
             let params = {}
@@ -39,7 +39,7 @@ export const RenderRoute = (route: string, method: RouterMethods) => {
     }
 }
 
-export const RedirectRoute = (route: string, method: RouterMethods) => {
+export const RedirectRoute = (route: string | string[], method: RouterMethods) => {
     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
         RouteDecorator(target, propertyKey, descriptor, method, route, async (router:any, originalFunction:Function, req:Express.Request, res:any, next:Function, finalPathToView?:string) => {
             let redirectParams: { path: string, code?: number } = await await originalFunction(router, req, next)
@@ -56,7 +56,7 @@ export const RedirectRoute = (route: string, method: RouterMethods) => {
     }
 }
 
-export const SendRoute = (route: string, method: RouterMethods) => {
+export const SendRoute = (route: string | string[], method: RouterMethods) => {
     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
         RouteDecorator(target, propertyKey, descriptor, method, route, async (router:any, originalFunction:Function, req:Express.Request, res:any, next:Function, finalPathToView?:string) => {
             let sendParams = await await originalFunction(router, req, next)

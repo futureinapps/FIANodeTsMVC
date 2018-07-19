@@ -1,4 +1,3 @@
-/// <reference types="express" />
 import * as Express from 'express';
 export default class Controller {
     private app;

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Glob = require("glob");
 const Path = require("path");
-const _1 = require("../");
+const __1 = require("../");
 const Enums_1 = require("./Enums");
 const root = global['rootPath'];
 if (!root) {
@@ -26,7 +26,7 @@ const RouteDecorator = (target, propertyKey, descriptor, method, route, cb, isRe
         finalPathToView = Path.dirname(absolutePath).replace(root + '/app/views/', '') + `/${propertyKey}`;
     }
     descriptor.value = (router) => {
-        return new _1.Route(router, route, stringMethod, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        return new __1.Route(router, route, stringMethod, (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             yield cb(router, originalFunction, req, res, next, finalPathToView, res);
         }));
     };

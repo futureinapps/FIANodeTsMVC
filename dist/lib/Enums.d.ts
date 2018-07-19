@@ -1,4 +1,4 @@
 export declare enum RouterMethods {
     GET = 0,
-    POST = 1,
+    POST = 1
 }
